@@ -1039,10 +1039,33 @@ arrEntries.forEach(value => {
     let policyLetter = value[1]
     let password = value[2]
         .split('')
-        .filter(char => char == policyLetter).length
+        .filter(char => char === policyLetter).length
     if (password <= policyMax && password >= policyMin) {
         correctPasword++;
     }
 });
 
 console.log(correctPasword);
+
+
+
+// DAY 2 (II)
+// Each policy actually describes two positions in the password, where 1 means the first character, 2 means the second character, and so on. (Be careful, no concept of "index zero"!) Exactly ONE of these positions must contain the given letter. Other occurrences of the letter are irrelevant for the purposes of policy enforcement.
+
+let correctPasword2 = 0;
+
+arrEntries.forEach(value => {
+    let policyMin = value[0][0];
+    let policyMax = value[0][1];
+    let policyLetter = value[1];
+    let password = value[2];
+
+    let policyPos1 = policyMin - 1;
+    let policyPos2 = policyMax - 1;
+
+    if ((password[policyPos1] === policyLetter && password[policyPos2] !== policyLetter) || (password[policyPos1] !== policyLetter && password[policyPos2] === policyLetter)) {
+        correctPasword2++;
+    }
+})
+
+console.log(correctPasword2);
